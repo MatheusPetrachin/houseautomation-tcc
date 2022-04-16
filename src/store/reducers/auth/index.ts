@@ -16,17 +16,19 @@ interface ActionProps {
 }
 
 export default function Auth(state = INITIAL_STATE, action: ActionProps) {
+  console.log(state)
+  console.log(action)
   switch (action.type) {
     case Types.LOGIN:
-      return { ...state, user: action.payload.user }
+      return { ...state, ...action.payload.user }
     case Types.LOGOUT:
-      return { ...state, user: action.payload.user }
+      return { ...state, ...action.payload.user }
     default:
       return state
   }
 }
 
-export const login = (user: typeof INITIAL_STATE) => {
+export const authLogin = (user: typeof INITIAL_STATE) => {
   return {
     type: Types.LOGIN,
     payload: {
@@ -34,7 +36,7 @@ export const login = (user: typeof INITIAL_STATE) => {
     }
   }
 }
-export const logout = (user: typeof INITIAL_STATE) => {
+export const authLogout = (user: typeof INITIAL_STATE) => {
   return {
     type: Types.LOGOUT,
     payload: {

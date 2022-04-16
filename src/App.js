@@ -26,7 +26,6 @@ const App = () => {
       default:
         localStorage.setItem(room, "ON");
         return "ON";
-        break;
     }
   }
   

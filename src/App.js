@@ -5,13 +5,29 @@ import axios from 'axios';
 
 const App = () => {
 
+  const chamarAPI = (room) => {
+    axios.post('http://' + localStorage.getItem("houseIP") + '/' + room + states(room), null)
+  }
 
-  const chamarAPI = (recebeu) => {
-    console.log('recebeurecebeurecebeu', recebeu)
-    const body = {
-      algumacoisa: "aqui"
+  const setIP = (newIP) => {
+    console.log(newIP)
+    localStorage.setItem("houseIP",newIP);
+  }
+
+  const states = (room) => {
+    var state = localStorage.getItem(room)
+    switch (state) {
+      case "ON":
+        localStorage.setItem(room, "OF");
+        return "OFF";
+      case "OF":        
+        localStorage.setItem(room, "ON");
+        return "ON";
+      default:
+        localStorage.setItem(room, "ON");
+        return "ON";
+        break;
     }
-    axios.post('https://api...', body)
   }
   
   return (
@@ -21,6 +37,8 @@ const App = () => {
         <img src={novaimagem} usemap="#planetmap"></img>
         <>
         <map id="planetmap" name="planetmap" >
+
+          <input type="text" onBlur={(e) => setIP(e.target.value)} />
 
         <area shape="rect" coords="8,36,176,299" alt="suite" id="suite" onClick={() => chamarAPI("suite")} class="grab"/>
         <area shape="rect" coords="179,4,343,233" alt="escritorio" id="escritorio"  onClick={() => chamarAPI("escritorio")} class="grab" />

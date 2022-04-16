@@ -1,7 +1,15 @@
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
 
 import houseReducer from './reducers/house';
+import authReducer from './reducers/auth'
 
-const store = createStore(houseReducer)
+const reducers = combineReducers({
+  house: houseReducer,
+  auth: authReducer
+})
+
+export type RootState = ReturnType<typeof reducers>
+
+const store = createStore(reducers)
 
 export default store

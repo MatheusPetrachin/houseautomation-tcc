@@ -3,30 +3,28 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
 
 const Home: NextPage = () => {
 
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
-  const [isAuthenticated, setIsAuthenticated] = useState<null | boolean>(null)
   const router = useRouter()
 
-  useEffect(() => {
-    const token = null
-    if (token) {
-      setIsAuthenticated(token)
+  const user = useSelector((state: RootState) => state.auth)
+
+  useEffect((): void => {
+    if (!user.username) {
+      router.push('/')
     } else {
-      setIsAuthenticated(null)
+      router.push('/dashboard')
     }
-  }, [isAuthenticated])
+  }, [user, router])
+
 
   const handleLogin = () => {
     console.log(login, password)
-    // TODO: call API
-    router.push('/dashboard')
-  }
-
-  if (isAuthenticated !== null) {
     router.push('/dashboard')
   }
 
